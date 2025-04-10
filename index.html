@@ -1,0 +1,3314 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bus4U - Visual Demo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Favicon (Adjust path if needed) -->
+    <link rel="icon" type="image/png" href="css/icons8-bus-16.png">
+
+    <!-- COMBINED STYLES -->
+    <style>
+        /* --- Base Variables & Reset --- */
+        :root {
+            --clr-primary: #739072;
+            /* Main green */
+            --clr-primary-dark: #4F6F52;
+            /* Darker green */
+            --clr-secondary: #F5EFE6;
+            /* Light beige background */
+            --clr-accent: #E8DFCA;
+            /* Slightly darker beige */
+            --clr-text-dark: #3A4D39;
+            /* Dark green text */
+            --clr-text-light: #ffffff;
+            /* White text */
+            --clr-text-muted: #5f745e;
+            /* Muted green text */
+            --clr-border: #dce0d9;
+            /* Light border color */
+            --clr-border-darker: #c8ccc6;
+            /* Slightly darker border (from dashboard) */
+            --clr-overlay: rgba(0, 0, 0, 0.5);
+            /* Hero overlay */
+            --clr-highlight: #61c107;
+            /* Highlight color */
+            --clr-error: #D8000C;
+            /* Error red */
+            --clr-error-bg: #FFD2D2;
+            /* Error background */
+            --clr-info-bg: #eef6fd;
+            /* Info blue background (for notes) */
+            --clr-info-border: #afcdec;
+            /* Info blue border */
+            --clr-seat-available: #e0f2f7;
+            /* Light blue for seats */
+            --clr-seat-selected: #ffcdd2;
+            /* Light red/pink for selected seats */
+            --clr-seat-booked: #bdbdbd;
+            /* Grey for booked seats */
+            --footer-text-dark: #000;
+
+
+            --font-primary: 'Poppins', sans-serif;
+            --font-display: 'Playfair Display', serif;
+
+            --radius-sm: 5px;
+            --radius-md: 10px;
+            --radius-lg: 50px;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-xxl: 4rem;
+
+            --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+            --transition-fast: 0.2s ease-in-out;
+            --transition-medium: 0.4s ease-in-out;
+            --transition-slow: 0.6s ease-in-out;
+
+            --sidebar-width: 260px;
+            /* From dashboard */
+        }
+
+        *,
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--clr-secondary);
+            color: var(--clr-text-dark);
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll caused by animations */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            line-height: 1.3;
+            /* Adjusted */
+            margin-bottom: var(--spacing-sm);
+            color: var(--clr-primary-dark);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+        }
+
+        /* specific for hero */
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        }
+
+        h3 {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--clr-text-muted);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--clr-primary);
+            transition: color var(--transition-fast);
+            cursor: pointer;
+        }
+
+        a:hover,
+        a:focus {
+            color: var(--clr-primary-dark);
+            outline: 2px solid transparent;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        input[type="submit"] {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all var(--transition-fast);
+            border-radius: var(--radius-lg);
+        }
+
+        input,
+        select,
+        textarea {
+            /* Added textarea */
+            font-family: inherit;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-sm);
+            width: 100%;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            background-color: var(--clr-text-light);
+            /* ensure light bg */
+            color: var(--clr-text-dark);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(115, 144, 114, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--clr-text-dark);
+        }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--spacing-md);
+            padding-right: var(--spacing-md);
+        }
+
+        .flex-space {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-padding {
+            padding: var(--spacing-xxl) 0;
+        }
+
+        .highlight {
+            color: var(--clr-highlight);
+        }
+
+        .sr-only {
+            /* Screen Reader only */
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .mt-md {
+            margin-top: var(--spacing-md) !important;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg) !important;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            line-height: 1.5;
+            /* ensure consistent height */
+            border: none;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn::before {
+            /* subtle hover background fill */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: width var(--transition-medium) ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--clr-primary);
+            color: var(--clr-text-light);
+            border: 2px solid var(--clr-primary);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: var(--clr-primary-dark);
+            color: var(--clr-text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--clr-primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--clr-primary);
+            border: 2px solid var(--clr-primary);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: var(--clr-primary);
+            color: var(--clr-text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+        }
+
+        .signup-btn {
+            width: 100%;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-disabled,
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-disabled:hover::before,
+        .btn:disabled:hover::before {
+            width: 0;
+        }
+
+        /* --- General Layout / View Switching --- */
+        .page-view {
+            display: none;
+            /* Hide all views by default */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-medium) ease-in-out, visibility var(--transition-medium) ease-in-out;
+            min-height: 80vh;
+            /* Ensure content pushes footer down visually */
+            position: relative;
+            /* Needed for absolute children or pseudo elements */
+        }
+
+        .page-view.active {
+            display: block;
+            /* Show active view */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Prevent content shifts when scrollbar appears/disappears */
+        body.no-scroll {
+            /* overflow: hidden; */
+            /* Be careful with this, can cause issues */
+        }
+
+        /* --- Preloader Styles --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--clr-primary-dark);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Example simple spinner */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--clr-text-light);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* --- Header --- */
+        #main-header {
+            /* Renamed from #header to avoid conflicts */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(245, 239, 230, 0.8);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-xs) 0;
+            height: 80px;
+            transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+            box-shadow: none;
+        }
+
+        #main-header.scrolled {
+            background-color: rgba(245, 239, 230, 0.95);
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo a {
+            display: block;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .navlinks ul {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .navlinks li {
+            list-style: none;
+        }
+
+        .navlinks a {
+            color: var(--clr-text-dark);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .navlinks a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--clr-primary);
+            transition: width var(--transition-fast);
+        }
+
+        .navlinks a:hover::after,
+        .navlinks a:focus::after {
+            width: 100%;
+        }
+
+        .navlinks a:hover,
+        .navlinks a:focus {
+            color: var(--clr-primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--clr-text-dark);
+            background: transparent;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .navlinks ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--clr-primary-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: var(--spacing-lg);
+                transform: translateX(100%);
+                transition: transform var(--transition-medium);
+                visibility: hidden;
+                opacity: 0;
+                z-index: 1000;
+            }
+
+            .navlinks ul.active {
+                transform: translateX(0);
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .navlinks a {
+                color: var(--clr-text-light);
+                font-size: 1.2rem;
+            }
+
+            .navlinks a:hover,
+            .navlinks a:focus {
+                color: var(--clr-accent);
+            }
+
+            .navlinks a::after {
+                background-color: var(--clr-accent);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navlinks .nav-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+                background-color: var(--clr-secondary);
+                color: var(--clr-primary-dark);
+                border: 2px solid var(--clr-secondary);
+            }
+
+            .navlinks .nav-btn:hover,
+            .navlinks .nav-btn:focus {
+                background-color: var(--clr-accent);
+                color: var(--clr-primary-dark);
+            }
+        }
+
+        /* --- Home / Hero Section --- */
+        .home {
+            position: relative;
+            height: 100vh;
+            color: var(--clr-text-light);
+            overflow: hidden;
+            margin-top: -80px;
+            /* Overlap header space */
+        }
+
+        .home .item {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .slide-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            transform: scale(1.1);
+            transition: transform 8s ease-out;
+        }
+
+        .owl-item.active .slide-image {
+            transform: scale(1);
+        }
+
+        .home .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+            z-index: 1;
+        }
+
+        .home .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            color: var(--clr-text-light);
+        }
+
+        .hero-title span {
+            display: inline-block;
+            /* For GSAP */
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .hero-buttons .btn-secondary {
+            border-color: var(--clr-text-light);
+            color: var(--clr-text-light);
+        }
+
+        .hero-buttons .btn-secondary:hover,
+        .hero-buttons .btn-secondary:focus {
+            background-color: var(--clr-text-light);
+            color: var(--clr-primary-dark);
+        }
+
+        .home .owl-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 var(--spacing-lg);
+            pointer-events: none;
+        }
+
+        .home .owl-nav button.owl-prev,
+        .home .owl-nav button.owl-next {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: var(--clr-text-light) !important;
+            border-radius: 50% !important;
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 1.5rem !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            transition: background-color var(--transition-fast), transform var(--transition-fast) !important;
+            pointer-events: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .home .owl-nav button.owl-prev:hover,
+        .home .owl-nav button.owl-next:hover {
+            background: rgba(255, 255, 255, 0.4) !important;
+            transform: scale(1.1) translateY(-50%);
+        }
+
+        .home .owl-nav button.owl-prev {
+            margin-left: -20px;
+        }
+
+        .home .owl-nav button.owl-next {
+            margin-right: -20px;
+        }
+
+        .home .owl-dots {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .home .owl-dots .owl-dot span {
+            background: rgba(255, 255, 255, 0.4) !important;
+            width: 12px !important;
+            height: 12px !important;
+            margin: 0 5px !important;
+            transition: background-color var(--transition-fast) !important;
+            border-radius: 50%;
+        }
+
+        .home .owl-dots .owl-dot.active span {
+            background: var(--clr-text-light) !important;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            /* For GSAP */
+        }
+
+        /* --- Section Title Styles --- */
+        .section-title {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title .subtitle {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--clr-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .section-title .title {
+            margin-bottom: 0;
+        }
+
+        /* --- Booking Section --- */
+        .book {
+            background-color: var(--clr-accent);
+            padding-top: var(--spacing-xxl);
+            padding-bottom: var(--spacing-xxl);
+            margin-top: -1px;
+            /* prevent gap */
+        }
+
+        .booking-form-container {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            align-items: end;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+        }
+
+        @media (min-width: 992px) {
+            .form-submit {
+                grid-column: auto;
+            }
+
+            .booking-form {
+                grid-template-columns: repeat(3, 1fr) auto;
+            }
+        }
+
+        /* --- About Section --- */
+        .about {
+            background-color: var(--clr-secondary);
+        }
+
+        .about-grid {
+            grid-template-columns: 1fr;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-grid:nth-child(odd) .about-image {
+                order: 1;
+            }
+
+            .about-grid:nth-child(odd) .about-content {
+                order: 2;
+            }
+
+            .about-grid:nth-child(even) .about-image {
+                order: 2;
+            }
+
+            .about-grid:nth-child(even) .about-content {
+                order: 1;
+            }
+        }
+
+        .about-image img {
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-content .section-title {
+            text-align: left;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .about-content .section-title .title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+        }
+
+        .features-list {
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            padding-left: 0;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1rem;
+            color: var(--clr-text-dark);
+        }
+
+        .features-list i {
+            font-size: 1.5rem;
+            color: var(--clr-primary);
+            flex-shrink: 0;
+        }
+
+        .about-content .btn {
+            margin-top: var(--spacing-md);
+        }
+
+        .anim-fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .anim-slide-in-left {
+            opacity: 0;
+            transform: translateX(-80px);
+        }
+
+        .anim-slide-in-right {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--clr-primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding-top: var(--spacing-xl);
+            position: relative;
+            /* Needs positioning for reveals */
+        }
+
+        .footer-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+            padding-bottom: var(--spacing-xl);
+        }
+
+        .footer-col h4 {
+            color: var(--footer-text-dark);
+            font-family: var(--font-primary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.1rem;
+        }
+
+        .footer-col p,
+        .footer-col li {
+            font-size: 0.9rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-col p i {
+            margin-right: var(--spacing-xs);
+            color: var(--clr-secondary);
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-col ul {
+            padding-left: 0;
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color var(--transition-fast), padding-left var(--transition-fast);
+        }
+
+        .footer-col ul a:hover,
+        .footer-col ul a:focus {
+            color: var(--footer-text-dark);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            margin-top: var(--spacing-md);
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .social-links a:hover,
+        .social-links a:focus {
+            color: var(--footer-text-dark);
+            transform: scale(1.1);
+        }
+
+        .footer-col.team-col .semester {
+            font-style: italic;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: -5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        #current-year {
+            /* Populated by JS */
+        }
+
+        .error-message {
+            color: var(--clr-error);
+            background-color: var(--clr-error-bg);
+            border: 1px solid var(--clr-error);
+            padding: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-radius: var(--radius-sm);
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        /* --- Login/Signup Styles --- */
+        #login-view,
+        #signup-view {
+            display: none;
+            /* Controlled by JS active class */
+            padding: var(--spacing-xl) var(--spacing-md);
+            min-height: 100vh;
+            background-color: var(--clr-accent);
+            /* Optional subtle background */
+            /* background-image:
+              linear-gradient(rgba(245, 239, 230, 0.9), rgba(245, 239, 230, 0.9)),
+              url('banner-1.jpg');
+            background-size: cover;
+            background-position: center; */
+        }
+
+        .login-container,
+        .signup-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            /* Added for centering */
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px - 2*var(--spacing-xl));
+            /* Adjust for header & padding */
+            padding-top: 80px;
+            /* Account for fixed header */
+        }
+
+        .login-box,
+        .signup-box {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out forwards;
+            /* Use existing animation */
+            opacity: 0;
+            /* Needed for keyframe animation */
+            transform: translateY(20px);
+            /* Needed for keyframe animation */
+            margin: auto;
+            /* Added for centering */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo,
+        .signup-logo {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .login-logo img,
+        .signup-logo img {
+            height: 60px;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        .login-box h1,
+        .signup-box h1 {
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--clr-text-muted);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .login-box form,
+        .signup-box form {
+            margin-top: var(--spacing-md);
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: var(--spacing-lg);
+            text-align: left;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) calc(2 * var(--spacing-sm) + 1em);
+            /* Adjust padding for left icon */
+            font-size: 1rem;
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-sm);
+            background-color: var(--clr-secondary);
+            color: var(--clr-text-dark);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .input-box input:focus {
+            /* Re-style focus to avoid conflict */
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(115, 144, 114, 0.2);
+        }
+
+        /* Adjusted Floating Label (Input must come *after* label for ~ selector) */
+        .input-box label {
+            position: absolute;
+            left: calc(2 * var(--spacing-sm) + 1em + 5px);
+            /* Position after icon */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--clr-text-muted);
+            pointer-events: none;
+            transition: all var(--transition-fast);
+            background-color: var(--clr-secondary);
+            padding: 0 5px;
+            line-height: 1;
+            font-size: 1rem;
+            /* Match input size initially */
+        }
+
+        .input-box input:focus+i+label,
+        /* Target label after icon */
+        .input-box input:not(:placeholder-shown)+i+label {
+            top: 0;
+            left: var(--spacing-sm);
+            /* Move label left on focus/fill */
+            transform: translateY(-50%);
+            /* Adjust vertical */
+            font-size: 0.8rem;
+            color: var(--clr-primary);
+            background-color: var(--clr-text-light);
+            /* Lift above border */
+            padding: 0 5px;
+            z-index: 1;
+            /* ensure it's above the input border */
+        }
+
+        .input-box input::placeholder {
+            color: transparent;
+            /* Hide placeholder */
+        }
+
+        .input-box i {
+            position: absolute;
+            left: var(--spacing-sm);
+            /* Icon on the left */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--clr-text-muted);
+            font-size: 1.1rem;
+            pointer-events: none;
+            width: 1.2em;
+            /* Give icon space */
+            text-align: center;
+            z-index: 2;
+            /* Above input bg */
+        }
+
+        /* Password Toggle Icon on Right */
+        .input-box i.password-toggle {
+            left: auto;
+            /* override left positioning */
+            right: var(--spacing-md);
+            pointer-events: auto;
+            /* Allow clicks */
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--clr-text-muted);
+        }
+
+        .options .remember {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .options .remember input[type="checkbox"] {
+            margin-right: var(--spacing-xs);
+            width: auto;
+            accent-color: var(--clr-primary);
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            font-size: 0.9rem;
+        }
+
+        .register-link,
+        .login-link {
+            font-size: 0.9rem;
+            margin-top: var(--spacing-md);
+            color: var(--clr-text-muted);
+        }
+
+        .register-link p,
+        .login-link p {
+            margin-bottom: 0;
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .back-to-home {
+            margin-top: var(--spacing-lg);
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .back-to-home a {
+            color: var(--clr-primary-dark);
+            transition: color var(--transition-fast);
+        }
+
+        .back-to-home a:hover {
+            color: var(--clr-primary);
+        }
+
+        /* --- Dashboard Styles --- */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--clr-primary-dark);
+            color: var(--clr-text-light);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            z-index: 950;
+            /* Below main header but above page views */
+            transition: transform var(--transition-medium);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-logo img {
+            max-height: 50px;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            padding-top: var(--spacing-md);
+        }
+
+        .sidebar-nav ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color var(--transition-fast), color var(--transition-fast), padding-left var(--transition-fast), border-left-color var(--transition-fast);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav li a i {
+            margin-right: var(--spacing-md);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color var(--transition-fast);
+        }
+
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a:focus {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--clr-text-light);
+            padding-left: calc(var(--spacing-lg) + 4px);
+        }
+
+        .sidebar-nav li a:hover i,
+        .sidebar-nav li a:focus i {
+            color: var(--clr-text-light);
+        }
+
+        .sidebar-nav li a.active {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--clr-text-light);
+            border-left-color: var(--clr-highlight);
+        }
+
+        .sidebar-nav li a.active i {
+            color: var(--clr-highlight);
+        }
+
+        .sidebar-footer {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+            /* Push to bottom */
+        }
+
+        .sidebar-footer p {
+            margin-bottom: 0;
+        }
+
+        /* Dashboard Main Content Area */
+        .dashboard-layout .main-content {
+            /* More specific selector */
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding-top: 80px;
+            /* Offset by global header height */
+            height: auto;
+            /* Don't fix height */
+            min-height: 100vh;
+            overflow-y: visible;
+            background-color: var(--clr-secondary);
+        }
+
+        .dashboard-layout .main-header {
+            /* More specific */
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-bottom: 1px solid var(--clr-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Positioned relative to main content area */
+            /* No longer sticky here, relies on overall view scroll */
+        }
+
+        .dashboard-layout .main-header h1 {
+            margin-bottom: 0;
+            font-size: 1.5rem;
+        }
+
+        .dashboard-layout .main-header p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .user-menu a {
+            font-size: 1.5rem;
+            color: var(--clr-text-muted);
+            margin-left: var(--spacing-md);
+        }
+
+        .user-menu a:hover,
+        .user-menu a:focus {
+            color: var(--clr-primary-dark);
+        }
+
+        .content-area {
+            padding: var(--spacing-lg);
+        }
+
+        /* Dashboard Stats Grid & Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card .card-icon {
+            font-size: 2.5rem;
+            color: var(--clr-primary);
+            opacity: 0.8;
+        }
+
+        .stat-card .card-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card .card-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--clr-primary-dark);
+            line-height: 1.1;
+        }
+
+        .stat-card .card-label {
+            font-size: 0.9rem;
+            color: var(--clr-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dashboard Content Sections & Lists/Cards */
+        .content-section {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .content-section h2 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--clr-border);
+            padding-bottom: var(--spacing-sm);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .content-section h2 i {
+            color: var(--clr-primary);
+        }
+
+        .card-list {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+
+        .trip-card {
+            border: 1px solid var(--clr-border);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-sm);
+            background-color: var(--clr-accent);
+            /* Slightly different background */
+        }
+
+        .trip-card p {
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.95rem;
+        }
+
+        .trip-card p strong {
+            color: var(--clr-text-dark);
+        }
+
+        .trip-card .btn {
+            margin-top: var(--spacing-sm);
+        }
+
+        .no-data-placeholder {
+            color: var(--clr-text-muted);
+            font-style: italic;
+            text-align: center;
+            padding: var(--spacing-lg);
+            border: 1px dashed var(--clr-border);
+            border-radius: var(--radius-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .content-section ul {
+            padding-left: var(--spacing-md);
+            list-style-type: disc;
+        }
+
+        .content-section li {
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.95rem;
+        }
+
+        /* Dashboard Responsiveness */
+        @media (max-width: 992px) {
+
+            /* Hide dashboard sidebar properly */
+            #dashboard-view .sidebar {
+                transform: translateX(-100%);
+            }
+
+            #dashboard-view .main-content {
+                margin-left: 0;
+            }
+
+            /* Add class .sidebar-visible toggled by JS */
+            #dashboard-view .sidebar.sidebar-visible {
+                transform: translateX(0);
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Add toggle button (requires adding HTML & JS) */
+            #dashboard-toggle {
+                display: block;
+                /* Show toggle on mobile */
+                position: fixed;
+                top: 90px;
+                left: 10px;
+                z-index: 1001;
+                background: var(--clr-primary);
+                color: var(--clr-text-light);
+                padding: 8px 10px;
+                border-radius: var(--radius-sm);
+                box-shadow: var(--shadow-md);
+            }
+
+            /* Need overlay when sidebar is open on mobile */
+            #sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 990;
+            }
+
+            #sidebar-overlay.active {
+                display: block;
+            }
+
+            #dashboard-view .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 993px) {
+            #dashboard-toggle {
+                display: none;
+            }
+
+            /* Hide toggle on desktop */
+            #sidebar-overlay {
+                display: none !important;
+            }
+
+            /* Never show overlay on desktop */
+        }
+
+
+        /* --- Seat Selection Styles --- */
+        #seat-booking-view {
+            padding: var(--spacing-xl);
+            padding-top: calc(80px + var(--spacing-xl));
+            /* Offset for header */
+        }
+
+        .seat-layout-container {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .seat-layout-container .title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--clr-primary-dark);
+        }
+
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* Example: 4 seats + aisle */
+            gap: var(--spacing-sm);
+            justify-items: center;
+            max-width: 400px;
+            /* Adjust based on layout */
+            margin: 0 auto var(--spacing-lg) auto;
+            border: 1px solid var(--clr-border);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-sm);
+        }
+
+        .seat-grid .seat-item {
+            /* Represents one potential seat slot */
+            grid-column: span 1;
+            height: 40px;
+            /* Ensure height for empty slots */
+            display: flex;
+            /* Use flex for label centering */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .seat-grid .seat-label {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: var(--radius-sm);
+            background-color: var(--clr-seat-available);
+            border: 1px solid var(--clr-primary-dark);
+            color: var(--clr-primary-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .seat-grid .seat-label:hover {
+            transform: scale(1.05);
+            background-color: var(--clr-accent);
+        }
+
+        .seat-grid input[type="checkbox"] {
+            display: none;
+            /* Hide checkbox itself */
+        }
+
+        .seat-grid input[type="checkbox"]:checked+.seat-label {
+            background-color: var(--clr-seat-selected);
+            border-color: #c62828;
+            /* Darker red */
+            color: #c62828;
+        }
+
+        .seat-grid input[type="checkbox"]:disabled+.seat-label {
+            background-color: var(--clr-seat-booked);
+            border-color: #757575;
+            /* Darker grey */
+            color: #757575;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .seat-grid input[type="checkbox"]:disabled+.seat-label:hover {
+            transform: none;
+            /* No hover effect for booked seats */
+            background-color: var(--clr-seat-booked);
+            /* Keep booked color */
+        }
+
+        .seat-grid .aisle {
+            grid-column: 3 / 4;
+            /* Example position for aisle */
+            /* background-color: lightgray; optional visualization */
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
+        }
+
+        .legend-item .seat-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid #666;
+        }
+
+        .seat-swatch.available {
+            background-color: var(--clr-seat-available);
+        }
+
+        .seat-swatch.selected {
+            background-color: var(--clr-seat-selected);
+        }
+
+        .seat-swatch.booked {
+            background-color: var(--clr-seat-booked);
+        }
+
+        .seat-info {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .seat-info span {
+            font-weight: 600;
+            color: var(--clr-primary-dark);
+        }
+
+        #seat-booking-view .btn-primary {
+            margin: 0 auto;
+            display: block;
+            max-width: 250px;
+        }
+
+        /* Center button */
+
+        /* --- Ticket View Styles --- */
+        #ticket-view {
+            padding: var(--spacing-xl);
+            padding-top: calc(80px + var(--spacing-xl));
+            /* Offset for header */
+            background-color: var(--clr-accent);
+        }
+
+        .ticket-container {
+            max-width: 700px;
+            margin: auto;
+            background-color: var(--clr-text-light);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid var(--clr-border-darker);
+        }
+
+        .ticket-header {
+            background-color: var(--clr-primary-dark);
+            color: var(--clr-text-light);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            border-bottom: 5px dashed var(--clr-secondary);
+            /* Dashed cut effect */
+        }
+
+        .ticket-logo img {
+            max-height: 50px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .ticket-details .ticket-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--clr-text-light);
+            margin-bottom: 0;
+        }
+
+        .ticket-details .ticket-id {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        .ticket-content {
+            padding: var(--spacing-lg);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .ticket-item {
+            font-size: 1rem;
+        }
+
+        .ticket-item label {
+            font-weight: 600;
+            color: var(--clr-text-dark);
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .ticket-item span.value {
+            color: var(--clr-text-muted);
+            font-weight: 500;
+        }
+
+        .ticket-info-full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Span full width */
+        .qr-code-container {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: var(--spacing-md);
+            border-top: 1px dashed var(--clr-border-darker);
+            padding-top: var(--spacing-lg);
+        }
+
+        .qr-code-container img {
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto;
+            border: 1px solid var(--clr-border);
+            padding: 5px;
+        }
+
+        .qr-code-container p {
+            font-size: 0.9rem;
+            margin-top: var(--spacing-sm);
+            color: var(--clr-text-muted);
+        }
+
+        .ticket-footer {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background-color: var(--clr-accent);
+            border-top: 1px solid var(--clr-border);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            /* Allow buttons to wrap */
+        }
+
+        .ticket-note {
+            font-size: 0.85rem;
+            color: var(--clr-text-muted);
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            width: 100%;
+            /* Take full width */
+            background-color: var(--clr-info-bg);
+            border: 1px solid var(--clr-info-border);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+        }
+
+        .ticket-btn {
+            /* Specific styles for buttons in footer */
+            flex-grow: 1;
+            /* Try to take equal space */
+            min-width: 150px;
+            /* Minimum width */
+        }
+
+
+        /* --- Checkout View Styles --- */
+        #checkout-view {
+            padding: var(--spacing-xl);
+            padding-top: calc(80px + var(--spacing-xl));
+            /* Offset for header */
+        }
+
+        .checkout-container {
+            background-color: var(--clr-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            max-width: 900px;
+            /* Allow more width for checkout */
+            margin: auto;
+        }
+
+        .checkout-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .checkout-col-75 {
+            flex: 0 0 100%;
+        }
+
+        /* Full width by default */
+        .checkout-col-50 {
+            flex: 0 0 100%;
+        }
+
+        /* Full width by default */
+        .checkout-col-25 {
+            flex: 0 0 100%;
+            order: -1;
+            /* Show cart first on mobile */
+        }
+
+        /* Full width by default */
+
+        @media (min-width: 768px) {
+            .checkout-col-75 {
+                flex: 0 0 calc(65% - var(--spacing-lg)/2);
+            }
+
+            .checkout-col-50 {
+                flex: 0 0 calc(50% - var(--spacing-lg)/2);
+            }
+
+            .checkout-col-25 {
+                flex: 0 0 calc(35% - var(--spacing-lg)/2);
+                order: 0;
+            }
+
+            /* Side by side layout */
+        }
+
+        .checkout-container h3 {
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--clr-border);
+            padding-bottom: var(--spacing-xs);
+        }
+
+        .icon-container {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.8rem;
+        }
+
+        .icon-container i {
+            margin-right: var(--spacing-xs);
+        }
+
+        /* Form fields are styled by default input/select rules */
+        .checkout-container label:has(input[type="checkbox"]) {
+            /* Style checkbox label */
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            font-size: 1rem;
+            margin-top: var(--spacing-md);
+        }
+
+        .checkout-container input[type="checkbox"] {
+            width: auto;
+            /* Don't make checkbox full width */
+            margin-right: var(--spacing-sm);
+            accent-color: var(--clr-primary);
+            cursor: pointer;
+        }
+
+        /* Cart Styling */
+        .checkout-col-25 .container {
+            /* Specific cart container */
+            background-color: var(--clr-accent);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--clr-border-darker);
+        }
+
+        .checkout-col-25 h4 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .checkout-col-25 .price {
+            float: right;
+            color: var(--clr-primary-dark);
+        }
+
+        .checkout-col-25 p {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .checkout-col-25 hr {
+            border: none;
+            border-top: 1px solid var(--clr-border-darker);
+            margin: var(--spacing-md) 0;
+        }
+
+        .checkout-col-25 b {
+            color: var(--clr-primary-dark);
+            font-weight: 600;
+        }
+
+        .checkout-container .btn {
+            width: 100%;
+            margin-top: var(--spacing-lg);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Global Header (Stays on top across most views) -->
+    <header id="main-header">
+        <div class="container flex-space">
+            <div class="logo">
+                <!-- Logo always goes to Landing View -->
+                <a href="#" data-view="landing-page-view">
+                    <img src="bus-ticket-logo(rb).png" alt="Bus4U Logo" /> <!-- Adjust path -->
+                </a>
+            </div>
+            <nav class="navlinks">
+                <ul id="menulist">
+                    <li><a href="#" data-view="landing-page-view">Home</a></li>
+                    <li><a href="#" data-scrollto="about">About Us</a></li> <!-- Scroll within landing -->
+                    <li><a href="#" data-view="signup-view">Signup</a></li>
+                    <li><a href="#login" data-view="login-view">Login</a></li>
+                    <!-- "Book Now" scrolls within Landing page view -->
+                    <li><a href="#book" data-scrollto="book" class="btn btn-primary nav-btn">BOOK NOW</a></li>
+                    <!-- Dashboard link appears later -->
+                    <li class="dashboard-nav-item" style="display: none;"><a href="#"
+                            data-view="dashboard-view">Dashboard</a></li>
+                    <li class="logout-nav-item" style="display: none;"><a href="#" id="logout-button">Logout</a></li>
+                </ul>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <i class='bx bx-menu'></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== LANDING PAGE VIEW ==================== -->
+    <div id="landing-page-view" class="page-view active">
+
+        <!-- Hero Section (Home) -->
+        <section class="home" id="home">
+            <div class="owl-carousel owl-theme home-carousel">
+                <div class="item">
+                    <div class="slide-image" style="background-image: url('banner-1.jpg');"></div> <!-- Adjust path -->
+                    <div class="overlay"></div>
+                    <div class="text container">
+                        <h1 class="hero-title"><span class="reveal-text">Explore New</span><br><span
+                                class="reveal-text">Destinations</span></h1>
+                        <p class="hero-subtitle reveal-text">Discover exciting adventures and scenic routes with our
+                            wide range of bus travel options.</p>
+                        <div class="hero-buttons reveal-text">
+                            <a href="#" data-scrollto="book" class="btn btn-primary">Book Your Trip</a>
+                            <a href="#" data-scrollto="about" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slide-image" style="background-image: url('banner-2.jpg');"></div> <!-- Adjust path -->
+                    <div class="overlay"></div>
+                    <div class="text container">
+                        <h1 class="hero-title"><span class="reveal-text">Comfortable &</span><br><span
+                                class="reveal-text">Convenient Journeys</span></h1>
+                        <p class="hero-subtitle reveal-text">Experience hassle-free travel with our comfortable buses
+                            and convenient booking process.</p>
+                        <div class="hero-buttons reveal-text">
+                            <a href="#" data-scrollto="book" class="btn btn-primary">Find Routes</a>
+                            <a href="#" data-scrollto="about" class="btn btn-secondary">Why Us?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slide-image" style="background-image: url('banner-3.jpg');"></div> <!-- Adjust path -->
+                    <div class="overlay"></div>
+                    <div class="text container">
+                        <h1 class="hero-title"><span class="reveal-text">Connect with</span><br><span
+                                class="reveal-text">Loved Ones</span></h1>
+                        <p class="hero-subtitle reveal-text">Reunite with family and friends or embark on a group
+                            adventure with our reliable bus services.</p>
+                        <div class="hero-buttons reveal-text">
+                            <a href="#" data-scrollto="book" class="btn btn-primary">Group Booking</a>
+                            <a href="#" data-scrollto="about" class="btn btn-secondary">Our Network</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slide-image" style="background-image: url('banner-4.jpg');"></div> <!-- Adjust path -->
+                    <div class="overlay"></div>
+                    <div class="text container">
+                        <h1 class="hero-title"><span class="reveal-text">Safe and</span><br><span
+                                class="reveal-text">Secure Travel</span></h1>
+                        <p class="hero-subtitle reveal-text">Your safety is our priority. Travel with peace of mind
+                            knowing that we prioritize your well-being.</p>
+                        <div class="hero-buttons reveal-text">
+                            <a href="#" data-scrollto="book" class="btn btn-primary">Check Safety</a>
+                            <a href="#" data-scrollto="about" class="btn btn-secondary">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section class="book section-padding" id="book">
+            <div class="container">
+                <div class="section-title text-center">
+                    <span class="subtitle anim-fade-up">Plan Your Journey</span>
+                    <h2 class="title anim-fade-up">Find & Book Your <span class="highlight">Seat</span></h2>
+                </div>
+                <div class="booking-form-container anim-fade-up">
+                    <!-- PHP Removed -->
+                    <form action="#" method="POST" class="booking-form" id="static-booking-form">
+                        <div class="form-group">
+                            <label for="from-location">From</label>
+                            <select name="from" id="from-location" required>
+                                <option value="" disabled selected>Select Origin</option>
+                                <!-- Static Options - Replace with JS if dynamic needed later -->
+                                <option value='City A'>Khandagiri</option>
+                                <option value='City B'>Patia</option>
+                                <option value='Town X'>CRP Square</option>
+                                <option value='Metropolis Y'>Fire station</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="to-location">To</label>
+                            <select name="to" id="to-location" required>
+                                <option value="" disabled selected>Select Destination</option>
+                                <!-- Static Options -->
+                                <option value='City A'>Khandagiri</option>
+                                <option value='City B'>Patia</option>
+                                <option value='Town X'>CRP Square</option>
+                                <option value='Metropolis Y'>Fire Station</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="travel-date">Date</label>
+                            <input type="date" name="date" id="travel-date" required min="2023-01-01">
+                            <!-- Static min date -->
+                        </div>
+                        <div class="form-group form-submit">
+                            <!-- This button now simulates going to seat selection -->
+                            <button type="button" id="check-availability-btn" class="btn btn-primary btn-submit">Check
+                                Availability</button>
+                        </div>
+                    </form>
+                    <p class="error-message" id="booking-error" style="display: none;"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section-padding" id="about">
+            <div class="container grid about-grid">
+                <div class="about-image anim-slide-in-left">
+                    <img src="banner-2.jpg" alt="Comfortable Bus Interior"> <!-- Adjust path -->
+                </div>
+                <div class="about-content anim-slide-in-right">
+                    <div class="section-title">
+                        <span class="subtitle">Why Choose Us?</span>
+                        <h2 class="title">Your Trusted Travel <span class="highlight">Partner</span></h2>
+                    </div>
+                    <p>
+                        Welcome to Bus4U! We're your premier destination for hassle-free bus ticket booking. With an
+                        extensive network of operators and destinations, our intuitive platform ensures a smooth
+                        experience.
+                    </p>
+                    <ul class="features-list">
+                        <li><i class='bx bx-check-shield'></i> Secure Transactions & Data Privacy</li>
+                        <li><i class='bx bx-support'></i> 24/7 Customer Support Ready to Help</li>
+                        <li><i class='bx bx-purchase-tag-alt'></i> Exclusive Deals & Instant Confirmation</li>
+                        <li><i class='bx bx-calendar-check'></i> Flexible Booking & Easy Management</li>
+                    </ul>
+                    <!-- Changed to a scroll link -->
+                    <a href="#" data-scrollto="home" class="btn btn-secondary">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-grid">
+                <div class="footer-col about-col">
+                    <a href="#" data-view="landing-page-view" class="footer-logo">
+                        <img src="bus-ticket-logo(rb).png" alt="Bus4U Logo Footer" /> <!-- Adjust path -->
+                    </a>
+                    <p>Your journey starts here. Reliable, comfortable, and affordable bus travel across numerous
+                        destinations.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class='bx bxl-facebook-square'></i></a>
+                        <a href="#" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                        <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                    </div>
+                </div>
+                <div class="footer-col links-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-view="landing-page-view">Home</a></li>
+                        <li><a href="#" data-scrollto="about">About Us</a></li>
+                        <li><a href="#" data-scrollto="book">Book Tickets</a></li>
+                        <li><a href="#">Routes (Dummy)</a></li>
+                        <li><a href="#">Contact (Dummy)</a></li>
+                        <li><a href="#">FAQs (Dummy)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col contact-col">
+                    <h4>Contact Info</h4>
+                    <p><i class='bx bx-map'></i> 123 Bus Lane, Travel City, TC 56789</p>
+                    <p><i class='bx bx-phone'></i> +1 (555) 123-4567</p>
+                    <p><i class='bx bx-envelope'></i> support@bus4u.com</p>
+                </div>
+                <div class="footer-col team-col">
+                    <h4>Project Team</h4>
+                    <p>Akash | Abhijeet | Sourabh | Annapurna</p>
+                    <p class="semester">6th Semester Project</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="current-year"></span> Bus4U. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div><!-- End #landing-page-view -->
+
+
+    <!-- ==================== LOGIN VIEW ==================== -->
+    <div id="login-view" class="page-view">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a href="#" data-view="landing-page-view">
+                        <img src="bus-ticket-logo(rb).png" alt="Bus4U Logo"> <!-- Adjust Path -->
+                    </a>
+                </div>
+
+                <!-- Form action removed, handled by JS -->
+                <form action="#" method="post" id="static-login-form">
+                    <h1>Welcome Back!</h1>
+                    <p class="subtitle">Login to book your next journey.</p>
+                    <p class="error-message" id="login-error" style="display: none;"></p>
+
+                    <div class="input-box">
+                        <input type="text" placeholder=" " id="username" name="username" required>
+                        <i class="fa fa-user"></i>
+                        <label for="username">Username or Email</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder=" " id="login-password" name="password" required>
+                        <i class="fa fa-eye-slash password-toggle" id="toggleLoginPassword"></i>
+                        <label for="login-password">Password</label>
+                    </div>
+
+                    <div class="options">
+                        <label class="remember">
+                            <input type="checkbox" name="remember_me">Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a> <!-- Dummy link -->
+                    </div>
+
+                    <!-- Button now triggers JS view switch -->
+                    <button type="button" id="login-submit-btn" class="btn btn-primary login-btn">Login</button>
+
+                    <div class="register-link">
+                        <p>Don't have an account?</p>
+                        <a href="#" data-view="signup-view">Register Now</a>
+                    </div>
+                </form>
+                <div class="back-to-home">
+                    <a href="#" data-view="landing-page-view">&larr; Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- End #login-view -->
+
+
+    <!-- ==================== SIGNUP VIEW ==================== -->
+    <div id="signup-view" class="page-view">
+        <div class="signup-container">
+            <div class="signup-box">
+                <div class="signup-logo">
+                    <a href="#" data-view="landing-page-view">
+                        <img src="bus-ticket-logo(rb).png" alt="Bus4U Logo"> <!-- Adjust Path -->
+                    </a>
+                </div>
+                <!-- Form action removed, handled by JS -->
+                <form action="#" method="post" id="static-signup-form">
+                    <h1>Create Account</h1>
+                    <p class="subtitle">Join us to start booking your travels easily.</p>
+                    <p class="error-message" id="signup-error" style="display: none;"></p>
+
+                    <div class="input-box">
+                        <input type="text" placeholder=" " name="name" id="signup-name" required autocomplete="off">
+                        <i class="fa fa-user"></i>
+                        <label for="signup-name">Full Name</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" placeholder=" " name="email" id="signup-email" required autocomplete="off">
+                        <i class="fa fa-envelope"></i>
+                        <label for="signup-email">Email</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder=" " name="password" id="signup-password" required
+                            maxlength="16">
+                        <i class="fa fa-eye-slash password-toggle" id="toggleSignupPassword"></i>
+                        <label for="signup-password">Password</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder=" " name="confirm_password" id="signup-confirm-password"
+                            required maxlength="16">
+                        <i class="fa fa-eye-slash password-toggle" id="toggleConfirmPassword"></i>
+                        <label for="signup-confirm-password">Confirm Password</label>
+                    </div>
+
+                    <!-- Button now triggers JS view switch to Login -->
+                    <button type="button" id="signup-submit-btn" class="btn btn-primary signup-btn">Sign Up</button>
+
+                    <div class="login-link">
+                        <p>Already have an account?</p>
+                        <a href="#" data-view="login-view">Login Now</a>
+                    </div>
+                </form>
+                <div class="back-to-home">
+                    <a href="#" data-view="landing-page-view">&larr; Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- End #signup-view -->
+
+
+    <!-- ==================== DASHBOARD VIEW ==================== -->
+    <div id="dashboard-view" class="page-view">
+        <!-- Dashboard specific layout -->
+        <div class="dashboard-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar" id="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <a href="#" data-view="landing-page-view" class="sidebar-logo">
+                        <img src="bus-ticket-logo(rb).png" alt="Bus4U Logo"> <!-- Adjust Path -->
+                    </a>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <!-- Links handled by JS or navigate to sections within this view if complex -->
+                        <li><a href="#" class="active" data-section="dashboard-home"><i
+                                    class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                        <li><a href="#" data-section="dashboard-bookings"><i class="fas fa-bus-alt fa-fw"></i> My
+                                Bookings</a></li>
+                        <li><a href="#" data-section="dashboard-profile"><i class="fas fa-user-circle fa-fw"></i>
+                                Profile</a></li>
+                        <li><a href="#" data-section="dashboard-settings"><i class="fas fa-cog fa-fw"></i> Settings</a>
+                        </li>
+                        <li><a href="#" id="dashboard-logout"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-footer">
+                    <p>&copy; <span class="dynamic-year"></span> Bus4U</p>
+                </div>
+            </aside>
+
+            <!-- Sidebar overlay for mobile -->
+            <div id="sidebar-overlay"></div>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Mobile Sidebar Toggle -->
+                <button id="dashboard-toggle" aria-label="Toggle Dashboard Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <header class="main-header">
+                    <div class="header-title">
+                        <h1>Welcome, <span id="dashboard-username">Guest</span>!</h1> <!-- Static placeholder -->
+                        <p>Here's your travel overview.</p>
+                    </div>
+                    <div class="user-menu">
+                        <a href="#" data-section="dashboard-profile" title="My Profile"><i
+                                class="fas fa-user-circle"></i></a>
+                        <!-- Dummy notification icon -->
+                        <a href="#" title="Notifications"><i class="fas fa-bell"></i><span class="badge">3</span></a>
+                    </div>
+                </header>
+
+                <section class="content-area" id="dashboard-content-area">
+                    <!-- Dashboard Home Content (Default) -->
+                    <div class="dashboard-section active" id="dashboard-home">
+                        <!-- Stats Cards Example -->
+                        <div class="stats-grid">
+                            <div class="stat-card anim-fade-up">
+                                <div class="card-icon"><i class="fas fa-ticket-alt"></i></div>
+                                <div class="card-info"> <span class="card-value">2</span> <span
+                                        class="card-label">Upcoming Trips</span></div>
+                            </div>
+                            <div class="stat-card anim-fade-up" style="animation-delay: 0.1s;">
+                                <div class="card-icon"><i class="fas fa-history"></i></div>
+                                <div class="card-info"> <span class="card-value">15</span> <span class="card-label">Past
+                                        Bookings</span></div>
+                            </div>
+                            <div class="stat-card anim-fade-up" style="animation-delay: 0.2s;">
+                                <div class="card-icon"><i class="fas fa-route"></i></div>
+                                <div class="card-info"> <span class="card-value">5</span> <span
+                                        class="card-label">Favorite Routes</span></div>
+                            </div>
+                            <div class="stat-card anim-fade-up" style="animation-delay: 0.3s;">
+                                <div class="card-icon"><i class="fas fa-wallet"></i></div>
+                                <div class="card-info"> <span class="card-value">$50.00</span> <span
+                                        class="card-label">Wallet Balance</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Trips Section Example -->
+                        <div class="content-section anim-fade-up">
+                            <h2><i class="fas fa-clock"></i> Upcoming Trips</h2>
+                            <div class="card-list">
+                                <div class="trip-card">
+                                    <p><strong>Route:</strong> City A <i class="fas fa-arrow-right"></i> City B</p>
+                                    <p><strong>Date:</strong> 2024-12-25 &nbsp;&nbsp; <strong>Time:</strong> 08:00 AM
+                                    </p>
+                                    <!-- Button to view ticket details (within this SPA) -->
+                                    <button class="btn btn-secondary btn-sm mt-md" data-view="ticket-view"
+                                        data-ticket-id="TICKET123">View Ticket</button>
+                                </div>
+                                <div class="trip-card">
+                                    <p><strong>Route:</strong> Town X <i class="fas fa-arrow-right"></i> Metropolis Y
+                                    </p>
+                                    <p><strong>Date:</strong> 2025-01-10 &nbsp;&nbsp; <strong>Time:</strong> 14:30 PM
+                                    </p>
+                                    <button class="btn btn-secondary btn-sm mt-md" data-view="ticket-view"
+                                        data-ticket-id="TICKET456">View Ticket</button>
+                                </div>
+                                <!-- <p class="no-data-placeholder">No upcoming trips found.</p> -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity Section Example -->
+                        <div class="content-section anim-fade-up">
+                            <h2><i class="fas fa-clipboard-list"></i> Recent Activity</h2>
+                            <ul>
+                                <li>Booked trip from City A to City B (Dec 15, 2023)</li>
+                                <li>Updated profile information (Dec 10, 2023)</li>
+                                <li>Cancelled booking #789 (Dec 05, 2023)</li>
+                            </ul>
+                            <!-- <p class="no-data-placeholder">No recent activity.</p> -->
+                        </div>
+                    </div>
+
+                    <!-- My Bookings Section (Hidden by default) -->
+                    <div class="dashboard-section" id="dashboard-bookings">
+                        <h2><i class="fas fa-bus-alt"></i> My Bookings</h2>
+                        <div class="content-section">
+                            <h3>Upcoming Trips</h3>
+                            <!-- Re-list cards or use a different table format -->
+                            <div class="trip-card">
+                                <p><strong>Route:</strong> City A <i class="fas fa-arrow-right"></i> City B</p>
+                                <p><strong>Date:</strong> 2024-12-25 &nbsp;&nbsp; <strong>Time:</strong> 08:00 AM</p>
+                                <button class="btn btn-secondary btn-sm mt-md" data-view="ticket-view"
+                                    data-ticket-id="TICKET123">View Ticket</button>
+                            </div>
+                            <div class="trip-card">
+                                <p><strong>Route:</strong> Town X <i class="fas fa-arrow-right"></i> Metropolis Y</p>
+                                <p><strong>Date:</strong> 2025-01-10 &nbsp;&nbsp; <strong>Time:</strong> 14:30 PM</p>
+                                <button class="btn btn-secondary btn-sm mt-md" data-view="ticket-view"
+                                    data-ticket-id="TICKET456">View Ticket</button>
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h3>Past Trips</h3>
+                            <div class="trip-card">
+                                <p><strong>Route:</strong> Metropolis Y <i class="fas fa-arrow-right"></i> City A</p>
+                                <p><strong>Date:</strong> 2023-11-20 &nbsp;&nbsp; <strong>Time:</strong> 10:00 AM</p>
+                                <span style="color: #aaa; font-size: 0.9em;">Completed</span>
+                            </div>
+                            <!-- Add more past trips -->
+                        </div>
+                    </div>
+
+                    <!-- Profile Section (Hidden by default) -->
+                    <div class="dashboard-section" id="dashboard-profile">
+                        <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
+                        <div class="content-section">
+                            <form action="#" id="profile-form">
+                                <div class="input-box">
+                                    <input type="text" placeholder=" " name="profile_name" id="profile-name"
+                                        value="Static User" required>
+                                    <i class="fas fa-user"></i>
+                                    <label for="profile-name">Full Name</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="email" placeholder=" " name="profile_email" id="profile-email"
+                                        value="guest@bus4u.com" required>
+                                    <i class="fas fa-envelope"></i>
+                                    <label for="profile-email">Email Address</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="tel" placeholder=" " name="profile_phone" id="profile-phone"
+                                        value="+15551234567">
+                                    <i class="fas fa-phone"></i>
+                                    <label for="profile-phone">Phone Number</label>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-lg">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section (Hidden by default) -->
+                    <div class="dashboard-section" id="dashboard-settings">
+                        <h2><i class="fas fa-cog"></i> Account Settings</h2>
+                        <div class="content-section">
+                            <h3>Change Password</h3>
+                            <form action="#" id="password-change-form">
+                                <div class="input-box">
+                                    <input type="password" placeholder=" " name="current_password"
+                                        id="current-password">
+                                    <i class="fa fa-eye-slash password-toggle" id="toggleCurrentPassword"></i>
+                                    <label for="current-password">Current Password</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password" placeholder=" " name="new_password" id="new-password">
+                                    <i class="fa fa-eye-slash password-toggle" id="toggleNewPassword"></i>
+                                    <label for="new-password">New Password</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password" placeholder=" " name="confirm_new_password"
+                                        id="confirm-new-password">
+                                    <i class="fa fa-eye-slash password-toggle" id="toggleConfirmNewPassword"></i>
+                                    <label for="confirm-new-password">Confirm New Password</label>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-lg">Update Password</button>
+                            </form>
+                        </div>
+                        <div class="content-section">
+                            <h3>Notification Preferences</h3>
+                            <label class="options remember">
+                                <input type="checkbox" name="email_notifications" checked> Receive Email Notifications
+                                for Bookings
+                            </label>
+                            <label class="options remember">
+                                <input type="checkbox" name="sms_notifications"> Receive SMS Alerts
+                            </label>
+                            <button type="button" class="btn btn-primary mt-lg">Save Preferences</button>
+                        </div>
+                    </div>
+
+                </section> <!-- end #dashboard-content-area -->
+            </main> <!-- end .main-content -->
+        </div> <!-- end .dashboard-layout -->
+    </div> <!-- end #dashboard-view -->
+
+
+    <!-- ==================== SEAT BOOKING VIEW ==================== -->
+    <div id="seat-booking-view" class="page-view">
+        <div class="seat-layout-container">
+            <h2 class="title text-center">Select Your Seats</h2>
+            <p class="text-center text-muted mb-lg">Choose your preferred seats for the trip from <strong
+                    id="seat-origin">City A</strong> to <strong id="seat-destination">City B</strong> on <strong
+                    id="seat-date">Selected Date</strong>.</p>
+
+            <div class="seat-legend">
+                <div class="legend-item"><span class="seat-swatch available"></span> Available</div>
+                <div class="legend-item"><span class="seat-swatch selected"></span> Selected</div>
+                <div class="legend-item"><span class="seat-swatch booked"></span> Booked</div>
+            </div>
+
+            <!-- Simplified Grid -->
+            <div class="seat-grid" id="bus-seat-grid">
+                <!-- Row 1 -->
+                <div class="seat-item"><input type="checkbox" id="s1" value="1"><label for="s1"
+                        class="seat-label">1</label></div>
+                <div class="seat-item"><input type="checkbox" id="s2" value="2"><label for="s2"
+                        class="seat-label">2</label></div>
+                <div class="seat-item aisle"></div>
+                <div class="seat-item"><input type="checkbox" id="s3" value="3"><label for="s3"
+                        class="seat-label">3</label></div>
+                <div class="seat-item"><input type="checkbox" id="s4" value="4" disabled><label for="s4"
+                        class="seat-label">4</label></div>
+                <!-- Row 2 -->
+                <div class="seat-item"><input type="checkbox" id="s5" value="5"><label for="s5"
+                        class="seat-label">5</label></div>
+                <div class="seat-item"><input type="checkbox" id="s6" value="6" disabled><label for="s6"
+                        class="seat-label">6</label></div>
+                <div class="seat-item aisle"></div>
+                <div class="seat-item"><input type="checkbox" id="s7" value="7"><label for="s7"
+                        class="seat-label">7</label></div>
+                <div class="seat-item"><input type="checkbox" id="s8" value="8"><label for="s8"
+                        class="seat-label">8</label></div>
+                <!-- ... Add more rows as needed based on actual bus layout ... -->
+                <!-- Row 3 -->
+                <div class="seat-item"><input type="checkbox" id="s9" value="9"><label for="s9"
+                        class="seat-label">9</label></div>
+                <div class="seat-item"><input type="checkbox" id="s10" value="10"><label for="s10"
+                        class="seat-label">10</label></div>
+                <div class="seat-item aisle"></div>
+                <div class="seat-item"><input type="checkbox" id="s11" value="11" disabled><label for="s11"
+                        class="seat-label">11</label></div>
+                <div class="seat-item"><input type="checkbox" id="s12" value="12"><label for="s12"
+                        class="seat-label">12</label></div>
+
+            </div>
+
+            <div class="seat-info">
+                <p>Seats Selected: <span id="selected-seats-display">None</span></p>
+                <p>Total Fare: $<span id="total-fare">0.00</span></p>
+            </div>
+
+            <!-- Button to proceed to Checkout -->
+            <button id="proceed-to-checkout-btn" class="btn btn-primary btn-disabled" disabled>Proceed to
+                Checkout</button>
+            <button id="cancel-seat-selection" class="btn btn-secondary mt-md" data-view="landing-page-view"
+                data-scrollto="book">Cancel</button>
+
+
+        </div>
+    </div><!-- End #seat-booking-view -->
+
+
+    <!-- ==================== CHECKOUT VIEW ==================== -->
+    <div id="checkout-view" class="page-view">
+        <div class="checkout-container">
+            <h2 class="text-center">Secure Checkout</h2>
+            <div class="checkout-row">
+                <div class="checkout-col-75">
+                    <h3>Payment Details</h3>
+                    <form action="#" id="payment-form">
+                        <div class="icon-container">
+                            <i class="fab fa-cc-visa" style="color:navy;"></i>
+                            <i class="fab fa-cc-amex" style="color:blue;"></i>
+                            <i class="fab fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fab fa-cc-discover" style="color:orange;"></i>
+                            <i class="fab fa-cc-paypal" style="color:#003087;"></i> <!-- Added Paypal -->
+                        </div>
+                        <div class="input-box">
+                            <input type="text" id="cname" name="cardname" placeholder=" ">
+                            <i class="fas fa-user-tag"></i>
+                            <label for="cname">Name on Card</label>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" id="ccnum" name="cardnumber" inputmode="numeric" placeholder=" ">
+                            <i class="fas fa-credit-card"></i>
+                            <label for="ccnum">Credit Card Number</label>
+                        </div>
+
+                        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                            <div class="input-box">
+                                <input type="text" id="expmonth" name="expmonth" placeholder="MM" inputmode="numeric">
+                                <i class="fas fa-calendar-alt"></i>
+                                <label for="expmonth">Exp. Month</label>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" id="expyear" name="expyear" placeholder="YYYY" inputmode="numeric">
+                                <i class="fas fa-calendar-check"></i>
+                                <label for="expyear">Exp. Year</label>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <input type="text" id="cvv" name="cvv" placeholder=" " inputmode="numeric">
+                            <i class="fas fa-user-secret"></i>
+                            <label for="cvv">CVV</label>
+                        </div>
+                    </form>
+                </div><!-- end col-75 -->
+
+                <div class="checkout-col-25">
+                    <div class="container"> <!-- Use .container for consistent padding -->
+                        <h4>Booking Summary</h4>
+                        <p>Route: <span id="summary-route">City A to City B</span></p>
+                        <p>Date: <span id="summary-date">Selected Date</span></p>
+                        <p>Seats: <span id="summary-seats">None</span></p>
+                        <hr>
+                        <p>Total Fare <span class="price">$<b id="summary-total-fare">0.00</b></span></p>
+                    </div>
+                    <button id="confirm-payment-btn" type="button" class="btn btn-primary btn-submit">Confirm
+                        Payment</button>
+                </div><!-- end col-25 -->
+
+            </div><!-- end row -->
+        </div>
+    </div> <!-- End #checkout-view -->
+
+
+    <!-- ==================== TICKET VIEW ==================== -->
+    <div id="ticket-view" class="page-view">
+        <div class="ticket-container">
+            <div class="ticket-header">
+                <div class="ticket-logo">
+                    <img src="bus-ticket-logo(rb).png" alt="Bus Logo"> <!-- Adjust path -->
+                </div>
+                <div class="ticket-details">
+                    <p class="ticket-title">Your E-Ticket</p>
+                    <p class="ticket-id">Ticket ID: <span id="ticket-id-display">LOADING...</span><br> Seats: <span
+                            id="ticket-seats-display"></span></p>
+                </div>
+            </div>
+
+            <div class="ticket-content">
+                <div class="ticket-item">
+                    <label>From:</label>
+                    <span class="value" id="ticket-from"></span>
+                </div>
+                <div class="ticket-item">
+                    <label>To:</label>
+                    <span class="value" id="ticket-to"></span>
+                </div>
+                <div class="ticket-item">
+                    <label>Date:</label>
+                    <span class="value" id="ticket-date"></span>
+                </div>
+                <div class="ticket-item">
+                    <label>Time:</label>
+                    <span class="value" id="ticket-time">08:00 AM</span> <!-- Placeholder -->
+                </div>
+                <div class="ticket-item">
+                    <label>Bus Type:</label>
+                    <span class="value" id="ticket-bus-type">AC</span> <!-- Placeholder -->
+                </div>
+                <div class="ticket-item ticket-info-full-width">
+                    <label>Passenger Name:</label>
+                    <span class="value">[Static User Name]</span> <!-- Placeholder -->
+                </div>
+                <div class="ticket-item ticket-info-full-width">
+                    <label>Total Fare:</label>
+                    <span class="value" id="ticket-total-fare">$30.00</span> <!-- Placeholder -->
+                </div>
+
+                <!-- Placeholder for QR Code -->
+                <div class="qr-code-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BUS4U-TICKET-STATIC-DEMO"
+                        alt="QR Code Placeholder"> <!-- Example QR API -->
+                    <p>Scan QR Code for quick check-in</p>
+                </div>
+            </div>
+
+            <div class="ticket-footer">
+                <p class="ticket-note">Please carry a valid ID proof and this ticket (digital or print) while traveling.
+                    Report 15 minutes before departure.</p>
+                <!-- Dummy Buttons -->
+                <button type="button" id="downloadPdfBtn" class="btn btn-primary ticket-btn"><i
+                        class="fas fa-download"></i> Download PDF</button>
+                <button type="button" data-view="dashboard-view" class="btn btn-secondary ticket-btn"><i
+                        class="fas fa-tachometer-alt"></i> Go to Dashboard</button>
+            </div>
+        </div>
+    </div><!-- End #ticket-view -->
+
+
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <!-- GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <!-- GSAP ScrollToPlugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js"></script>
+
+
+    <!-- COMBINED Custom Script -->
+    <script>
+        $(document).ready(function () {
+
+            // --- GSAP & Plugin Registration ---
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+            // --- State Variables (Simulation) ---
+            let isLoggedIn = false; // Simulate login state
+            let currentView = 'landing-page-view'; // Track current visible view
+
+            // --- Preloader ---
+            const preloader = $('#preloader');
+            gsap.to(preloader, {
+                opacity: 0,
+                visibility: 'hidden',
+                delay: 1.5, // Adjust delay as needed
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+
+            // --- Helper Function for GSAP Reveals (Only for Landing Page sections for simplicity now) ---
+            function revealElement(element, options = {}) {
+                if ($('#landing-page-view').hasClass('active')) { // Only animate if landing page is active
+                    gsap.fromTo(element, // Use fromTo for potential re-triggering if views change
+                        { opacity: 0, y: options.y || 50, x: options.x || 0 },
+                        {
+                            opacity: 1, y: 0, x: 0, duration: 1.2, ease: "power3.out",
+                            stagger: options.stagger || 0.15,
+                            scrollTrigger: {
+                                trigger: element, start: options.start || "top 85%",
+                                toggleActions: "play none none reset" // Reset helps if view changes
+                            },
+                            delay: options.delay || 0,
+                            ...options // Allow overriding defaults
+                        }
+                    );
+                }
+            }
+
+            // --- Navigation/View Switching Logic ---
+            const views = $('.page-view');
+            function showView(viewId) {
+                if (currentView === viewId) return; // Don't switch if already active
+
+                const targetView = $(`#${viewId}`);
+                if (!targetView.length) {
+                    console.error(`View not found: ${viewId}`);
+                    return;
+                }
+
+                const currentViewElement = $(`#${currentView}`);
+
+                // Fade out current view
+                gsap.to(currentViewElement, {
+                    opacity: 0,
+                    visibility: 'hidden',
+                    duration: 0.3,
+                    ease: 'power1.in',
+                    onComplete: () => {
+                        currentViewElement.removeClass('active');
+                        targetView.addClass('active');
+                        currentView = viewId;
+
+                        // Fade in new view
+                        gsap.to(targetView, {
+                            opacity: 1,
+                            visibility: 'visible',
+                            duration: 0.4,
+                            ease: 'power1.out'
+                        });
+
+                        // Scroll to top of the new view
+                        gsap.to(window, { duration: 0.5, scrollTo: 0 });
+
+                        // Update UI based on new view
+                        updateNavLinks(viewId);
+                        updateBodyClass(viewId);
+
+                        // Initialize or refresh elements specific to the view
+                        if (viewId === 'landing-page-view') {
+                            initLandingPage(); // Re-init Owl Carousel & reveals if needed
+                            runLandingPageAnimations(); // Rerun reveal anims
+                        }
+                        if (viewId === 'dashboard-view') {
+                            // Reset dashboard sections to default if needed
+                            setActiveDashboardSection('dashboard-home');
+                            initDashboardAnimations();
+                        }
+                    }
+                });
+
+
+            }
+
+            function updateNavLinks(activeViewId) {
+                // Show/hide Login/Signup vs Dashboard/Logout links
+                if (isLoggedIn) {
+                    $('#menulist li:has(a[data-view="signup-view"])').hide();
+                    $('#menulist li:has(a[data-view="login-view"])').hide();
+                    $('#menulist .dashboard-nav-item').show();
+                    $('#menulist .logout-nav-item').show();
+                } else {
+                    $('#menulist li:has(a[data-view="signup-view"])').show();
+                    $('#menulist li:has(a[data-view="login-view"])').show();
+                    $('#menulist .dashboard-nav-item').hide();
+                    $('#menulist .logout-nav-item').hide();
+                }
+            }
+
+            function updateBodyClass(viewId) {
+                $('body').removeClass(function (index, className) {
+                    return (className.match(/(^|\s)view-\S+/g) || []).join(' ');
+                });
+                $('body').addClass(`view-${viewId}`);
+
+                // Toggle header visibility/style based on view
+                if (viewId === 'dashboard-view') {
+                    // Option 1: Hide main header (uncomment)
+                    // $('#main-header').hide();
+                    // Option 2: Keep header but maybe change style or make it transparent
+                    // $('#main-header').addClass('dashboard-header-style');
+                    // Show dashboard sidebar
+                } else {
+                    // $('#main-header').show();
+                    // $('#main-header').removeClass('dashboard-header-style');
+                    // Hide dashboard sidebar if shown on mobile
+                    $('#dashboard-sidebar').removeClass('sidebar-visible');
+                    $('#sidebar-overlay').removeClass('active');
+                }
+            }
+
+            // Navigation click handlers
+            $(document).on('click', 'a[data-view]', function (e) {
+                e.preventDefault();
+                const targetView = $(this).data('view');
+                showView(targetView);
+                // Close mobile menu if open
+                if ($('#menulist').hasClass('active')) {
+                    mobileMenuTimeline.reverse();
+                }
+            });
+
+            // ScrollTo click handlers (for landing page sections)
+            $(document).on('click', 'a[data-scrollto]', function (e) {
+                e.preventDefault();
+                const targetId = $(this).data('scrollto');
+                const targetElement = $(`#${targetId}`);
+
+                if (currentView !== 'landing-page-view') {
+                    // Switch to landing view first, then scroll after animation
+                    showView('landing-page-view');
+                    gsap.delayedCall(0.6, () => { // Delay matches view transition time
+                        if (targetElement.length) {
+                            gsap.to(window, {
+                                duration: 1,
+                                scrollTo: { y: targetElement.offset().top - 70, autoKill: true },
+                                ease: "power2.inOut"
+                            });
+                        }
+                    });
+                } else if (targetElement.length) {
+                    // Already on landing page, just scroll
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: targetElement.offset().top - 70, autoKill: true },
+                        ease: "power2.inOut"
+                    });
+                }
+                // Close mobile menu if open
+                if ($('#menulist').hasClass('active')) {
+                    mobileMenuTimeline.reverse();
+                }
+            });
+
+
+            // --- Initial Setup ---
+            updateNavLinks(currentView);
+            updateBodyClass(currentView);
+
+
+            // --- Header Scroll Effect ---
+            const header = document.getElementById('main-header');
+            if (header) { // Ensure header exists
+                window.addEventListener('scroll', () => {
+                    if (currentView === 'landing-page-view' || currentView === 'dashboard-view' || true /* Always apply */) {
+                        if (window.scrollY > 50) {
+                            header.classList.add('scrolled');
+                        } else {
+                            header.classList.remove('scrolled');
+                        }
+                    }
+                });
+            }
+
+
+            // --- Mobile Menu Toggle ---
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuList = document.getElementById('menulist');
+            let mobileMenuTimeline = null; // Initialize later
+
+            if (menuToggle && menuList) {
+                mobileMenuTimeline = gsap.timeline({ paused: true, reversed: true });
+                mobileMenuTimeline.to(menuList, {
+                    x: 0, opacity: 1, visibility: 'visible',
+                    duration: 0.4, ease: 'power2.inOut'
+                });
+
+                menuToggle.addEventListener('click', () => {
+                    mobileMenuTimeline.reversed() ? mobileMenuTimeline.play() : mobileMenuTimeline.reverse();
+                });
+
+                // Close menu if clicking outside (optional)
+                // $(document).on('click', function(e){
+                //     if (!$(e.target).closest('#main-header').length && $('#menulist').hasClass('active')) {
+                //          mobileMenuTimeline.reverse();
+                //     }
+                // });
+            }
+
+
+            // --- Landing Page Specific Initializations ---
+            function initLandingPage() {
+                // Re-init Owl Carousel (or ensure it works correctly)
+                if ($('.home-carousel').length > 0 && !$('.home-carousel').hasClass('owl-loaded')) {
+                    $('.home-carousel').owlCarousel({
+                        items: 1, loop: true, margin: 0, nav: true, dots: true,
+                        autoplay: true, autoplayTimeout: 7000, autoplayHoverPause: true,
+                        smartSpeed: 800,
+                        navText: ["<i class='bx bxs-chevron-left'></i>", "<i class='bx bxs-chevron-right'></i>"],
+                        onTranslated: function () {
+                            // Re-trigger reveal animation on active slide elements after translation
+                            const activeSlideText = $('.owl-item.active .reveal-text');
+                            gsap.killTweensOf(activeSlideText); // Kill previous anims
+                            gsap.fromTo(activeSlideText,
+                                { opacity: 0, y: 30 },
+                                { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', delay: 0.3 }
+                            );
+                        }
+                    });
+                }
+
+                // Initial reveal for the first slide
+                gsap.to($('.owl-item.active .reveal-text'), {
+                    opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.5 // Delay after page load/view switch
+                });
+            }
+
+            // --- Landing Page GSAP Animations (Run on load & view switch) ---
+            function runLandingPageAnimations() {
+                if (!$('#landing-page-view').hasClass('active')) return; // Only run if visible
+
+                gsap.set('.anim-fade-up, .anim-slide-in-left, .anim-slide-in-right', { opacity: 0 }); // Ensure they are hidden initially
+                gsap.set('.anim-fade-up', { y: 50 });
+                gsap.set('.anim-slide-in-left', { x: -80 });
+                gsap.set('.anim-slide-in-right', { x: 80 });
+
+
+                // Header items fade-in
+                gsap.from("#main-header .navlinks ul li", { opacity: 0, y: -30, duration: 0.8, stagger: 0.1, delay: 0.3, ease: "power2.out", overwrite: 'auto' });
+                gsap.from("#main-header .logo", { opacity: 0, x: -30, duration: 0.8, delay: 0.2, ease: "power2.out", overwrite: 'auto' });
+
+                // Section reveals using ScrollTrigger
+                revealElement(".book .section-title .subtitle.anim-fade-up");
+                revealElement(".book .section-title .title.anim-fade-up", { delay: 0.1 });
+                revealElement(".booking-form-container.anim-fade-up", { start: "top 90%" });
+
+                revealElement(".about-image.anim-slide-in-left", { start: "top 80%" });
+                revealElement(".about-content .subtitle", { start: "top 80%", x: 80, y: 0, ease: "power2.out" }); // Animate right section too
+                revealElement(".about-content .title", { start: "top 80%", delay: 0.1, x: 80, y: 0, ease: "power2.out" });
+                revealElement(".about-content p", { start: "top 80%", delay: 0.2, x: 80, y: 0, ease: "power2.out" });
+                revealElement(".about-content .features-list li", { start: "top 80%", delay: 0.3, stagger: 0.1, x: 80, y: 0, ease: "power2.out" });
+                revealElement(".about-content .btn", { start: "top 80%", delay: 0.5, x: 80, y: 0, ease: "power2.out" });
+
+
+                // Footer Reveal
+                gsap.from(".footer-grid > div", {
+                    opacity: 0, y: 40, duration: 0.8, stagger: 0.15, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".footer", start: "top 95%",
+                        toggleActions: "play none none reset"
+                    }
+                });
+            }
+
+
+            // --- Landing Page: Static Booking Form Handling ---
+            $('#check-availability-btn').on('click', function () {
+                // 1. Validate inputs (basic)
+                const from = $('#from-location').val();
+                const to = $('#to-location').val();
+                const date = $('#travel-date').val();
+                if (!from || !to || !date) {
+                    $('#booking-error').text('Please fill in all fields.').slideDown();
+                    return;
+                }
+                $('#booking-error').slideUp();
+
+                // 2. Store selections (e.g., in data attributes or global vars) for seat view
+                $('#seat-origin').text(from);
+                $('#seat-destination').text(to);
+                $('#seat-date').text(new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })); // Format date
+
+                // 3. Simulate checking and switch view to Seat Selection
+                console.log(`Checking availability from ${from} to ${to} on ${date}`);
+                showView('seat-booking-view');
+                // TODO: Potentially fetch available seats here in a real app
+            });
+
+            // --- Seat Selection Logic ---
+            const seatGrid = $('#bus-seat-grid');
+            const selectedSeatsDisplay = $('#selected-seats-display');
+            const totalFareDisplay = $('#total-fare');
+            const checkoutBtn = $('#proceed-to-checkout-btn');
+            const SEAT_FARE = 15.00; // Example fare per seat
+
+            seatGrid.on('change', 'input[type="checkbox"]', function () {
+                updateSeatSelection();
+            });
+
+            function updateSeatSelection() {
+                const selectedCheckboxes = seatGrid.find('input[type="checkbox"]:checked');
+                let selectedSeatNumbers = [];
+                selectedCheckboxes.each(function () {
+                    selectedSeatNumbers.push($(this).val());
+                });
+
+                selectedSeatsDisplay.text(selectedSeatNumbers.length > 0 ? selectedSeatNumbers.join(', ') : 'None');
+
+                const totalFare = selectedSeatNumbers.length * SEAT_FARE;
+                totalFareDisplay.text(totalFare.toFixed(2));
+
+                if (selectedSeatNumbers.length > 0) {
+                    checkoutBtn.prop('disabled', false).removeClass('btn-disabled');
+                } else {
+                    checkoutBtn.prop('disabled', true).addClass('btn-disabled');
+                }
+            }
+            // Init Seat display
+            updateSeatSelection();
+
+            $('#proceed-to-checkout-btn').on('click', function () {
+                if ($(this).hasClass('btn-disabled')) return;
+
+                // Update Checkout Summary
+                $('#summary-route').text(`${$('#seat-origin').text()} to ${$('#seat-destination').text()}`);
+                $('#summary-date').text($('#seat-date').text());
+                $('#summary-seats').text($('#selected-seats-display').text());
+                $('#summary-total-fare').text($('#total-fare').text());
+
+                showView('checkout-view');
+            });
+
+
+            // --- Checkout Logic ---
+            $('#confirm-payment-btn').on('click', function () {
+                // Basic validation placeholder
+                const cardName = $('#cname').val();
+                const cardNum = $('#ccnum').val();
+                if (!cardName || !cardNum) {
+                    alert("Please fill in payment details (Visual Only)");
+                    return;
+                }
+
+                console.log("Simulating payment processing...");
+                // In real app: send data to server
+
+                // Generate a dummy Ticket ID
+                const dummyTicketId = "BUS4U" + Math.random().toString(16).substr(2, 8).toUpperCase();
+
+                // Update ticket view before showing
+                $('#ticket-id-display').text(dummyTicketId);
+                $('#ticket-seats-display').text($('#summary-seats').text());
+                $('#ticket-from').text($('#seat-origin').text());
+                $('#ticket-to').text($('#seat-destination').text());
+                $('#ticket-date').text($('#summary-date').text());
+                $('#ticket-total-fare').text($('#summary-total-fare').text());
+                // Add other fields if needed
+
+                // Simulate success -> Show Ticket View
+                alert("Payment Confirmed (Simulation)! Generating your ticket.");
+                showView('ticket-view');
+            });
+
+            // --- Ticket View Logic ---
+            $('#downloadPdfBtn').on('click', function () {
+                alert("PDF Download is not functional in this static demo.");
+                // In a real app, you'd use a library like jsPDF or server-side generation.
+            });
+
+            // View Ticket button from Dashboard
+            $(document).on('click', 'button[data-view="ticket-view"]', function (e) {
+                e.preventDefault();
+                const ticketId = $(this).data('ticket-id');
+
+                // Simulate fetching ticket details based on ID
+                console.log(`Fetching details for ticket ${ticketId}`);
+                // For demo, just populate with dummy/known data
+                $('#ticket-id-display').text(ticketId); // Use the clicked ID
+                $('#ticket-seats-display').text(ticketId === 'TICKET123' ? '1, 2' : '9, 10'); // Dummy seats
+                $('#ticket-from').text(ticketId === 'TICKET123' ? 'City A' : 'Town X');
+                $('#ticket-to').text(ticketId === 'TICKET123' ? 'City B' : 'Metropolis Y');
+                $('#ticket-date').text(ticketId === 'TICKET123' ? 'December 25, 2024' : 'January 10, 2025');
+                $('#ticket-total-fare').text(ticketId === 'TICKET123' ? '30.00' : '30.00');
+
+                showView('ticket-view');
+            });
+
+
+
+            // --- Login/Signup Logic (Simulation) ---
+            $('#login-submit-btn').on('click', function () {
+                // Simple validation
+                const username = $('#username').val();
+                const password = $('#login-password').val();
+                if (!username || !password) {
+                    $('#login-error').text('Please enter username and password.').slideDown();
+                    return;
+                }
+                $('#login-error').slideUp();
+
+                // Simulate successful login
+                console.log("Simulating login...");
+                isLoggedIn = true;
+                $('#dashboard-username').text(username.split('@')[0]); // Use username part before @ if email
+                updateNavLinks(); // Update main nav immediately
+                showView('dashboard-view');
+            });
+
+            $('#signup-submit-btn').on('click', function () {
+                // Simple validation
+                const name = $('#signup-name').val();
+                const email = $('#signup-email').val();
+                const pass = $('#signup-password').val();
+                const confirmPass = $('#signup-confirm-password').val();
+
+                if (!name || !email || !pass || !confirmPass) {
+                    $('#signup-error').text('Please fill all fields.').slideDown();
+                    return;
+                }
+                if (pass !== confirmPass) {
+                    $('#signup-error').text('Passwords do not match.').slideDown();
+                    return;
+                }
+                $('#signup-error').slideUp();
+
+                // Simulate successful signup -> Redirect to login
+                console.log("Simulating signup...");
+                alert("Signup Successful (Simulation)! Please login.");
+                showView('login-view');
+            });
+
+            // Password Toggles
+            $('.password-toggle').on('click', function () {
+                const inputId = $(this).siblings('input').attr('id');
+                const input = $(`#${inputId}`);
+                const type = input.attr('type') === 'password' ? 'text' : 'password';
+                input.attr('type', type);
+                $(this).toggleClass('fa-eye fa-eye-slash');
+            });
+
+
+            // --- Logout Logic ---
+            function logout() {
+                console.log("Logging out...");
+                isLoggedIn = false;
+                $('#dashboard-username').text('Guest');
+                updateNavLinks();
+                showView('login-view'); // Go to login after logout
+            }
+            $('#logout-button').on('click', function (e) { e.preventDefault(); logout(); });
+            $('#dashboard-logout').on('click', function (e) { e.preventDefault(); logout(); });
+
+
+            // --- Dashboard Specific Logic ---
+            function setActiveDashboardSection(sectionId) {
+                $('.dashboard-section').removeClass('active').hide(); // Hide all
+                $('#' + sectionId).addClass('active').fadeIn(300); // Fade in target
+
+                $('.sidebar-nav a').removeClass('active');
+                $(`.sidebar-nav a[data-section="${sectionId}"]`).addClass('active');
+
+                // Refresh ScrollTrigger for animations in the new section
+                ScrollTrigger.refresh();
+            }
+
+            // Dashboard Sidebar Navigation
+            $('.sidebar-nav').on('click', 'a[data-section]', function (e) {
+                e.preventDefault();
+                const sectionId = $(this).data('section');
+                setActiveDashboardSection(sectionId);
+                // Close mobile sidebar if open
+                if ($('#dashboard-sidebar').hasClass('sidebar-visible')) {
+                    $('#dashboard-sidebar').removeClass('sidebar-visible');
+                    $('#sidebar-overlay').removeClass('active');
+                }
+            });
+
+            // Dashboard Mobile Sidebar Toggle
+            $('#dashboard-toggle').on('click', function () {
+                $('#dashboard-sidebar').toggleClass('sidebar-visible');
+                $('#sidebar-overlay').toggleClass('active');
+            });
+            // Close sidebar if clicking overlay
+            $('#sidebar-overlay').on('click', function () {
+                $('#dashboard-sidebar').removeClass('sidebar-visible');
+                $(this).removeClass('active');
+            });
+
+            // Initial dashboard animations
+            function initDashboardAnimations() {
+                if (!$('#dashboard-view').hasClass('active')) return;
+
+                // Add slight stagger/fade-in to dashboard cards/sections when dashboard loads
+                gsap.from('.stat-card', {
+                    opacity: 0, y: 30, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+                    scrollTrigger: { trigger: '.stats-grid', start: 'top 85%', toggleActions: 'play none none reset' }
+                });
+                gsap.from('#dashboard-home .content-section', { // Target sections within the home tab
+                    opacity: 0, y: 30, duration: 0.6, stagger: 0.2, ease: 'power2.out',
+                    scrollTrigger: { trigger: '#dashboard-home .content-section', start: 'top 85%', toggleActions: 'play none none reset' }
+                });
+            }
+
+
+            // --- Footer Current Year ---
+            $('.dynamic-year').text(new Date().getFullYear());
+
+
+            // --- Initial Page Load Setup ---
+            initLandingPage();
+            runLandingPageAnimations(); // Run initial animations
+
+        }); // End document ready
+    </script>
+
+</body>
+
+</html>
