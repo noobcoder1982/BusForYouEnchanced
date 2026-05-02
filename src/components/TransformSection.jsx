@@ -2,95 +2,133 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Zap, Compass } from 'lucide-react';
 
-const features = [
+const FEATURES = [
   {
-    icon: <Shield size={32} />,
-    title: "Unmatched Safety",
-    desc: "AI-powered collision avoidance and 24/7 real-time monitoring for total peace of mind.",
-    color: "#3d5afe"
+    icon:  Shield,
+    title: 'Unmatched Safety',
+    desc:  'AI-powered collision avoidance systems and 24/7 real-time fleet monitoring for complete peace of mind.',
+    color: '#3d5afe',
+    tag:   'SAFETY FIRST',
   },
   {
-    icon: <Zap size={32} />,
-    title: "Eco-Efficiency",
-    desc: "Our next-gen electric fleet reduces carbon footprint by 80% without compromising power.",
-    color: "#00c853"
+    icon:  Zap,
+    title: 'Eco-Efficiency',
+    desc:  'Our next-gen CNG & electric fleet reduces the city\'s carbon footprint without compromising on power.',
+    color: '#00c853',
+    tag:   'SUSTAINABILITY',
   },
   {
-    icon: <Compass size={32} />,
-    title: "Smart Routing",
-    desc: "Dynamic pathfinding technology that bypasses congestion to save your precious time.",
-    color: "#ff3d00"
-  }
+    icon:  Compass,
+    title: 'Smart Routing',
+    desc:  'Dynamic GTFS pathfinding bypasses peak-hour congestion. Arrive exactly when you planned.',
+    color: '#ff6d00',
+    tag:   'INTELLIGENCE',
+  },
 ];
 
-const TransformSection = () => {
-  return (
-    <section className="container" style={{ padding: '160px 40px' }}>
-      <div style={{ textAlign: 'center', marginBottom: '100px' }}>
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '24px' }}
+const itemVariants = {
+  hidden:  { opacity: 0, y: 32 },
+  visible: (i) => ({
+    opacity:    1,
+    y:          0,
+    transition: { duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const TransformSection = () => (
+  <section className="section-padding" id="about">
+    <div className="container">
+      <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto clamp(48px, 8vw, 96px)' }}>
+        <div className="text-label" style={{ marginBottom: '16px' }}>WHY BUS4U</div>
+        <h2
+          style={{
+            fontSize:      'clamp(2.5rem, 6vw, 5rem)',
+            fontWeight:    900,
+            letterSpacing: '-0.04em',
+            lineHeight:    1.0,
+            marginBottom:  '20px',
+            color:         'var(--fg)',
+          }}
         >
-          Built for the Future.
-        </motion.h2>
-        <p style={{ fontSize: '1.25rem', color: 'var(--muted)', maxWidth: '600px', margin: '0 auto' }}>
-          We've integrated world-class technology into every aspect of our fleet to provide a journey unlike any other.
+          Built for the Future of Transit.
+        </h2>
+        <p style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)', color: 'var(--muted)', lineHeight: 1.5 }}>
+          We've woven world-class technology into every detail — from the seat you book
+          to the second you board.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
-        {features.map((f, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.2 }}
-            whileHover={{ y: -10 }}
-            style={{ 
-              padding: '60px 40px', 
-              borderRadius: '32px', 
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-          >
-            <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              borderRadius: '24px', 
-              background: `rgba(${parseInt(f.color.slice(1,3), 16)}, ${parseInt(f.color.slice(3,5), 16)}, ${parseInt(f.color.slice(5,7), 16)}, 0.1)`, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              color: f.color,
-              marginBottom: '32px'
-            }}>
-              {f.icon}
-            </div>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '16px' }}>{f.title}</h3>
-            <p style={{ fontSize: '1rem', color: 'var(--muted)', lineHeight: 1.6 }}>{f.desc}</p>
-            
-            {/* Background Glow */}
-            <div style={{ 
-              position: 'absolute', 
-              top: '-50px', 
-              right: '-50px', 
-              width: '150px', 
-              height: '150px', 
-              background: f.color, 
-              filter: 'blur(100px)', 
-              opacity: 0.1 
-            }}></div>
-          </motion.div>
-        ))}
+      <div style={{
+        display:             'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 30%, 400px), 1fr))',
+        gap:                 'clamp(16px, 2.5vw, 32px)',
+      }}>
+        {FEATURES.map((f, i) => {
+          const Icon = f.icon;
+          const rgb  = f.color.match(/\w\w/g).map(h => parseInt(h, 16)).join(', ');
+          return (
+            <motion.div
+              key={f.title}
+              custom={i}
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              whileHover={{ y: -6, boxShadow: 'var(--shadow-xl)' }}
+              style={{
+                padding:      'clamp(28px, 4vw, 48px)',
+                borderRadius: 'var(--r-xl)',
+                background:   'var(--surface)',
+                border:       '1px solid var(--border)',
+                boxShadow:    'var(--shadow-md)',
+                position:     'relative',
+                overflow:     'hidden',
+                transition:   'box-shadow 0.3s, transform 0.3s',
+              }}
+            >
+              {/* Glow blob */}
+              <div style={{
+                position:   'absolute',
+                top:        '-40px',
+                right:      '-40px',
+                width:      '200px',
+                height:     '200px',
+                background: `rgba(${rgb}, 0.12)`,
+                borderRadius: '50%',
+                filter:     'blur(60px)',
+                pointerEvents: 'none',
+              }} />
+
+              <div style={{
+                width:        '56px',
+                height:       '56px',
+                borderRadius: 'var(--r-lg)',
+                background:   `rgba(${rgb}, 0.1)`,
+                display:      'flex',
+                alignItems:   'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                color:        f.color,
+                border:       `1px solid rgba(${rgb}, 0.2)`,
+              }}>
+                <Icon size={26} strokeWidth={2} />
+              </div>
+
+              <div className="text-label" style={{ marginBottom: '10px', color: f.color }}>
+                {f.tag}
+              </div>
+              <h3 style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px', color: 'var(--fg)' }}>
+                {f.title}
+              </h3>
+              <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: 1.6 }}>
+                {f.desc}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default TransformSection;

@@ -1,40 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Marquee = () => {
-  const marqueeVariants = {
-    animate: {
-      x: [0, -1000],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 20,
-          ease: "linear",
-        },
-      },
-    },
-  };
+const WORDS = [
+  'LUXURY', 'PRECISION', 'FUTURE', 'COMFORT', 'SAFETY',
+  'SUSTAINABLE', 'RELIABLE', 'SMART', 'PREMIUM', 'GLOBAL',
+  'MOBUS', 'BHUBANESWAR', 'TIMELY', 'PREMIUM', 'TRUSTED',
+];
 
-  const words = ["LUXURY", "COMFORT", "PRECISION", "SAFETY", "RELIABILITY"];
-
-  return (
-    <div style={{ overflow: 'hidden', padding: '60px 0', borderTop: '1px solid #111', borderBottom: '1px solid #111', whiteSpace: 'nowrap' }}>
-      <motion.div 
-        variants={marqueeVariants}
-        animate="animate"
-        style={{ display: 'inline-flex', gap: '80px', fontSize: '3rem', fontWeight: 500, color: '#333' }}
-      >
-        {[...Array(4)].map((_, i) => (
-          <React.Fragment key={i}>
-            {words.map((word, index) => (
-              <span key={index}>{word}</span>
-            ))}
-          </React.Fragment>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
+const Marquee = () => (
+  <div style={{
+    overflow:   'hidden',
+    background: 'var(--fg)',
+    color:      'var(--bg)',
+    padding:    'clamp(20px, 3vw, 36px) 0',
+    width:      '100%',
+    position:   'relative',
+  }}>
+    <motion.div
+      animate={{ x: ['0%', '-50%'] }}
+      transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
+      style={{
+        display:     'flex',
+        gap:         'clamp(32px, 8vw, 80px)',
+        whiteSpace:  'nowrap',
+        width:       'max-content',
+      }}
+    >
+      {[...WORDS, ...WORDS].map((word, i) => (
+        <span
+          key={i}
+          style={{
+            fontSize:      'clamp(2.5rem, 10vw, 8rem)',
+            fontWeight:    900,
+            letterSpacing: '-0.04em',
+            opacity:       i % 3 === 0 ? 1 : i % 3 === 1 ? 0.25 : 0.6,
+            color:         i % 5 === 0 ? 'var(--accent)' : 'inherit',
+          }}
+        >
+          {word}
+        </span>
+      ))}
+    </motion.div>
+  </div>
+);
 
 export default Marquee;

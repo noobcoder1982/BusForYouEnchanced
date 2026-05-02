@@ -25,41 +25,38 @@ const fleet = [
 
 const Works = () => {
   return (
-    <section className="container" style={{ padding: '160px 40px' }} id="works">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '80px' }}>
-        <div>
-          <h2 style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '16px' }}>The Fleet.</h2>
-          <p style={{ fontSize: '1.25rem', color: 'var(--muted)' }}>Curation of engineering excellence.</p>
+    <section className="container section-padding" id="works">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px', flexDirection: 'column', gap: '20px' }} className="works-header">
+        <div style={{ textAlign: 'center', width: '100%' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 800, marginBottom: '12px' }}>The Fleet.</h2>
+          <p style={{ fontSize: '1.1rem', color: 'var(--muted)' }}>Curation of engineering excellence.</p>
         </div>
-        <a href="#" style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--accent)', borderBottom: '2px solid var(--accent)', paddingBottom: '4px' }}>
-          VIEW FULL CATALOG
-        </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
         {fleet.map((bus, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
+            className="fleet-item"
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: '1.2fr 1fr', 
-              gap: '60px', 
+              gridTemplateColumns: '1fr', 
+              gap: '30px', 
               alignItems: 'center',
               borderBottom: '1px solid var(--border)',
-              paddingBottom: '80px'
+              paddingBottom: '60px'
             }}
           >
             <motion.div 
-              whileHover={{ scale: 1.02 }}
               style={{ 
-                height: '500px', 
-                borderRadius: '40px', 
+                height: 'clamp(250px, 50vw, 450px)', 
+                borderRadius: '32px', 
                 overflow: 'hidden',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.5)'
+                boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
               }}
             >
               <img 
@@ -69,30 +66,41 @@ const Works = () => {
               />
             </motion.div>
             
-            <div>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--accent)', letterSpacing: '2px' }}>{bus.tag}</span>
-              <h3 style={{ fontSize: '3.5rem', fontWeight: 800, margin: '20px 0' }}>{bus.name}</h3>
-              <p style={{ fontSize: '1.2rem', color: 'var(--muted)', lineHeight: 1.6, marginBottom: '40px' }}>{bus.desc}</p>
+            <div style={{ textAlign: 'center' }} className="fleet-content">
+              <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', letterSpacing: '1.5px' }}>{bus.tag}</span>
+              <h3 style={{ fontSize: 'clamp(1.75rem, 6vw, 3rem)', fontWeight: 800, margin: '12px 0' }}>{bus.name}</h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--muted)', lineHeight: 1.6, marginBottom: '30px', maxWidth: '500px', margin: '0 auto 30px' }}>{bus.desc}</p>
               
               <motion.button
-                whileHover={{ gap: '20px' }}
                 style={{ 
                   background: 'none', 
-                  color: '#fff', 
-                  fontSize: '1rem', 
+                  color: 'var(--fg)', 
+                  fontSize: '0.95rem', 
                   fontWeight: 700, 
                   display: 'flex', 
                   alignItems: 'center', 
-                  gap: '10px',
-                  border: 'none'
+                  gap: '8px',
+                  border: 'none',
+                  margin: '0 auto'
                 }}
               >
-                DISCOVER MORE <ArrowUpRight size={20} />
+                DISCOVER MORE <ArrowUpRight size={18} />
               </motion.button>
             </div>
           </motion.div>
         ))}
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (min-width: 769px) {
+          .works-header { flex-direction: row !important; }
+          .works-header div { text-align: left !important; }
+          .fleet-item { grid-template-columns: 1.2fr 1fr !important; gap: 60px !important; }
+          .fleet-content { text-align: left !important; }
+          .fleet-content p { margin: 0 0 30px 0 !important; }
+          .fleet-content button { margin: 0 !important; }
+        }
+      `}} />
     </section>
   );
 };

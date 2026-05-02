@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bus4U | Redefining Travel</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- SEO -->
+    <title>BUS4U — Bhubaneswar's Premium Transit Platform</title>
+    <meta name="description" content="Book MoBus seats in seconds. Luxury AC transit across Bhubaneswar. Real-time tracking, premium comfort, guaranteed timing." />
+    <meta name="keywords" content="MoBus, Bhubaneswar bus booking, BBSR transit, CRUT, online bus ticket" />
+    <meta name="theme-color" content="#050505" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="BUS4U — Your City. Your Seat. Your Time." />
+    <meta property="og:description" content="Book premium MoBus seats across Bhubaneswar in under 60 seconds." />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon (Swiss square) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233d5afe'/><text x='16' y='22' font-family='sans-serif' font-weight='900' font-size='14' text-anchor='middle' fill='white'>B4U</text></svg>" />
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Prevent theme flash -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('bus4u-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
   </body>
 </html>
