@@ -96,7 +96,7 @@ const Process = () => {
               }}>
                 STEP {step.id}
               </div>
-              <h2 className="display-medium" style={{ marginBottom: '32px' }}>{step.title}</h2>
+              <h2 style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, color: 'var(--fg)', marginBottom: '32px' }}>{step.title}</h2>
               <p style={{ 
                 fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', 
                 color: 'var(--muted)', 
@@ -110,13 +110,13 @@ const Process = () => {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style>{`
         @media (max-width: 768px) {
           .process-sidebar { border-bottom: none !important; position: relative !important; top: 0 !important; }
           .desktop-only { display: none !important; }
           .process-wrapper { gap: 60px !important; }
         }
-      `}} />
+      `}</style>
     </section>
   );
 };
