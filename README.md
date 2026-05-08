@@ -34,7 +34,7 @@ Premium-themed MoBus booking experience built with React + Vite, featuring a cin
 
 ### Prerequisites
 
-- Node.js (LTS recommended)
+- Node.js **18.0.0+** (LTS recommended)
 - npm
 
 ### Install
@@ -63,7 +63,9 @@ npm run build
 npm run preview
 ```
 
-> `npm run lint` exists in `package.json`, but the repo currently does not include an ESLint config file.
+## 🧪 Development Notes
+
+- `npm run lint` exists in `package.json`, but the repo currently does not include an ESLint config file.
 
 ## 📁 Project Structure (brief)
 
@@ -105,4 +107,3 @@ This project includes an **Apache License 2.0**. See [LICENSE](./LICENSE).
 ## 👤 Contact / Credits
 
 Maintained by **[@noobcoder1982](https://github.com/noobcoder1982)**.
-
